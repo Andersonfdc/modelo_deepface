@@ -18,6 +18,8 @@ import pandas as pd
 from matplotlib.animation import FuncAnimation
 import tqdm
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 # Função para suprimir avisos do TensorFlow
 def suppress_tf_warnings():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
