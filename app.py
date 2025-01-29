@@ -30,7 +30,79 @@ suppress_tf_warnings()
 # Configuração do Streamlit
 st.set_page_config(page_title="Reconhecimento Facial", page_icon=":beginner:")
 st.title("Classificação de Imagens - Amigos vs Familiares")
-st.sidebar.title("Configurações")
+st.sidebar.title("Meu Projeto de Machine Learning 📊")
+
+descricao_projeto1 = """
+Este projeto tem como objetivo classificar imagens faciais em duas categorias: familiares e amigos. Para isso, utiliza técnicas avançadas de aprendizado de máquina e visão computacional aplicadas ao reconhecimento facial. No contexto do modelo, considera-se familiares como pessoas de ascendência asiática, enquanto amigos são pessoas de outras etnias.
+
+## Tecnologias e Bibliotecas Utilizadas
+
+- 🤖 **DeepFace**: Extração de embeddings faciais utilizando o modelo Facenet.
+
+- 🦾 **TensorFlow/Keras**: Construção e treinamento de um modelo de classificação baseado em redes neurais artificiais.
+
+- 🏜️ **OpenCV**: Processamento de imagens e detecção de rostos.
+
+- 📈 **Matplotlib e Seaborn**: Visualização de resultados, incluindo a matriz de confusão.
+
+- 💻 **Streamlit**: Interface interativa para upload de imagens e visualização dos resultados.
+
+- 📃 **FPDF**: Geração de relatórios em PDF com estatísticas do modelo.
+
+"""
+# Exibir a descrição na barra lateral
+st.sidebar.write(descricao_projeto1)
+
+icons = '''
+    <div style="text-align: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="40" style="margin: 8px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg" width="40" style="margin: 8px;" />
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original-wordmark.svg" width="40" style="margin: 8px;" />
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg" width="40" style="margin: 8px;"/>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="40" style="margin: 8px;"/>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg"  width="40" style="margin: 8px;"/>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" width="40" style="margin: 8px;" />
+        <img src="https://icon.icepanel.io/Technology/svg/Matplotlib.svg" width="40" style="margin: 8px;" />
+        <img src="https://icon.icepanel.io/Technology/svg/Keras.svg" width="40" style="margin: 8px;" />     
+        <img src="https://icon.icepanel.io/Technology/svg/scikit-learn.svg" width="40" style="margin: 8px;" /> 
+    </div                   
+'''
+st.sidebar.markdown(icons, unsafe_allow_html=True)
+
+descricao_projeto2 = """
+
+## Fluxo de Trabalho
+
+- **Carregamento dos Dados**: As imagens são carregadas de diretórios de treino e validação.
+
+- **Extração de Embeddings**: Cada imagem é processada pelo DeepFace, extraindo uma representação vetorial do rosto.
+
+- **Construção e Treinamento do Modelo**: Uma rede neural densa com camadas `fully connected`, função de ativação `ReLU` e `dropout` para evitar overfitting.
+
+- **Validação e Avaliação**:
+
+    * Matriz de confusão para análise dos erros do modelo.
+
+    * Relatório de classificação (índices de precisão, recall e F1-score).
+
+- **Geração de Relatório**: Exportação dos resultados em formato PDF.
+
+## Aplicabilidade
+
+O projeto pode ser expandido para diversas aplicações, como controle de acesso, segurança digital e organização automática de álbuns de fotos baseados em grupos sociais.
+"""
+
+# Exibir a descrição na barra lateral
+st.sidebar.write(descricao_projeto2)
+
+# Adicionando o link para o LinkedIn
+linkedin_icon = '''
+    <a href="https://www.linkedin.com/in/andersonfdc/" target="_blank" style="text-decoration: none; color: white; font-weight: bold; display: flex; align-items: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" width="20" style="margin-right: 8px;"/> 
+        LinkedIn
+    </a>
+'''
+st.sidebar.markdown(linkedin_icon, unsafe_allow_html=True)
 
 # Diretórios de treino e validação
 train_dir = './data/train'
