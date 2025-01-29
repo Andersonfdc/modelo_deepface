@@ -502,6 +502,8 @@ if uploaded_file and st.button("Gerar Mapa de Oclusão"):
             occlusion_map("temp_test_image.jpg",block_size, stride)
         except ValueError as e:
             st.warning("Não foi possível carregar a imagem 🙁.")
-            st.image('luffy.gif')
+            col1, col2, col3 = st.columns([1, 2, 1])  # Ajuste a proporção conforme necessário
+            with col2:
+                st.image("luffy.gif")
     
 
