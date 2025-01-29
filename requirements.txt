@@ -11,5 +11,3 @@ streamlit==1.22.0
 Pillow==11.1.0
 pandas==2.2.3
 tqdm==4.67.1
-libgl1-mesa-glx
-libglib2.0-0
