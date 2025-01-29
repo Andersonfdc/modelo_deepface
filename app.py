@@ -502,7 +502,7 @@ if uploaded_file and st.button("Gerar Mapa de Oclusão"):
         print(f"Imagem salva em: {path}")
         try:
             path = os.path.join(train_dir,resultado,uploaded_file.name)
-            st.write(f"Imagem salva em: {path}")
+            print(f"Imagem salva em: {path}")
             block_size, stride = get_occlusion_params(path)
             occlusion_map("temp_test_image.jpg",block_size, stride)
         except ValueError as e:
