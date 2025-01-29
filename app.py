@@ -106,7 +106,7 @@ with st.spinner("Treinando... Isso pode levar algum tempo."):
     )
 
 model.save('face_recognition_model.h5')
-st.success("Modelo treinado e salvo como 'face_recognition_model.h5'.")
+st.success("Modelo treinado")
 
 
 # Exibir histórico de treinamento
@@ -340,8 +340,6 @@ if uploaded_file or captured_image:
         with st.spinner("Classificando a imagem..."):
             resultado = classify_image(uploaded_file.name)
             st.success(f"A imagem pertence à classe: {resultado}")
-            saved_path = save_image(uploaded_file.name, resultado)
-            st.write(f"Imagem salva em: {saved_path}")
             
     except Exception as e:
         st.error(f"Erro durante a classificação: {e}")
