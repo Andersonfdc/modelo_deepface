@@ -501,6 +501,7 @@ if uploaded_file and st.button("Gerar Mapa de Oclusão"):
             block_size, stride = get_occlusion_params(path)
             occlusion_map("temp_test_image.jpg",block_size, stride)
         except ValueError as e:
+            print(e)
             st.warning("Não foi possível carregar a imagem 🙁.")
             col1, col2, col3 = st.columns([1, 2, 1])  # Ajuste a proporção conforme necessário
             with col2:
