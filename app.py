@@ -495,7 +495,7 @@ def occlusion_map(image_path, block_size, stride, model_path='face_recognition_m
     st.image(superimposed_img, caption="Mapa de Oclusão", use_column_width=True)
 
 if uploaded_file and st.button("Gerar Mapa de Oclusão"):
-    with st.spinner("Gerando mapa de oclusão..."):
+    with st.spinner("Gerando mapa de oclusão...O tempo irá variar de acordo com o tamanho da imagem"):
         path = os.path.join(train_dir,resultado,uploaded_file.name)
         block_size, stride = get_occlusion_params(path)
         occlusion_map("temp_test_image.jpg",block_size, stride)
