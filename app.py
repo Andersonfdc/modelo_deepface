@@ -30,7 +30,7 @@ suppress_tf_warnings()
 # Configuração do Streamlit
 st.set_page_config(page_title="Reconhecimento Facial", page_icon=":beginner:")
 st.title("Classificação de Imagens - Amigos vs Familiares")
-st.sidebar.image("./logo.jpeg", use_column_width=True)
+st.sidebar.image("logo.jpeg", use_column_width=True)
 st.sidebar.title("Projeto de Machine Learning")
 
 descricao_projeto1 = """
