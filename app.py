@@ -356,6 +356,10 @@ if option == "Upload de imagem":
 if option == "Tirar foto com a câmera":
     uploaded_file = st.camera_input(label="Clique no botão abaixo para capturar uma foto")
 
+def size_img(image_path):
+    img = cv2.imread(image_path)
+    img_h, img_w = img.shape[:2]
+    return img_h, img_w
 
 
 if uploaded_file or captured_image:
@@ -370,8 +374,10 @@ if uploaded_file or captured_image:
             image = Image.open(uploaded_file)
     
         image.save("temp_test_image.jpg")
+        img_path="temp_test_image.jpg"
         result = DeepFace.analyze(img_path="temp_test_image.jpg", actions=['emotion'], enforce_detection=False)
-        st.image(image, caption="Imagem Enviada", use_column_width=True)
+        img_h, img_w = size_img(img_path)
+        st.image(image, caption=f"Imagem Enviada {img_h}x{img_w}", use_column_width=True)
         st.write("Análise da Imagem:")
         # st.json(result)
         
