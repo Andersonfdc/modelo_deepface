@@ -377,7 +377,7 @@ if uploaded_file or captured_image:
         img_path="temp_test_image.jpg"
         result = DeepFace.analyze(img_path="temp_test_image.jpg", actions=['emotion'], enforce_detection=False)
         img_h, img_w = size_img(img_path)
-        st.image(image, caption=f"Imagem Enviada {img_h}x{img_w}", use_column_width=True)
+        st.image(image, caption=f"Imagem Enviada {img_w}x{img_h}", use_column_width=True)
         st.write("Análise da Imagem:")
         # st.json(result)
         
