@@ -229,7 +229,7 @@ with st.spinner("Treinando... Isso pode levar algum tempo."):
         batch_size=8,
         epochs=80,
         validation_data=(validation_data, validation_labels),
-        callbacks=[early_stopping]
+        callbacks=[StreamlitCallback(status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, train_classes), early_stopping]
     )
 
 model.save('face_recognition_model.h5')
