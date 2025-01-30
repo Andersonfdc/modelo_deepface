@@ -105,6 +105,12 @@ linkedin_icon = '''
 '''
 st.sidebar.markdown(linkedin_icon, unsafe_allow_html=True)
 
+if 'model_trained' not in st.session_state:
+    st.session_state.model_trained = False
+if 'history' not in st.session_state:
+    st.session_state.history = None
+
+
 class StreamlitCallback(tf.keras.callbacks.Callback):
     def __init__(self, status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, class_names):
         self.status_placeholder = status_placeholder
@@ -224,20 +230,21 @@ matrix_placeholder = st.empty()
 early_stopping = EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True)
 
 # with st.spinner("Treinando... Isso pode levar algum tempo."):
-history = model.fit(
-    train_data, train_labels,
-    batch_size=8,
-    epochs=80,
-    validation_data=(validation_data, validation_labels),
-    callbacks=[StreamlitCallback(status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, train_classes), early_stopping]
-)
-
-model.save('face_recognition_model.h5')
-st.success("Modelo treinado 🦾✅")
+if st.button("Treinar Modelo"):
+    history = model.fit(
+        train_data, train_labels,
+        batch_size=8,
+        epochs=80,
+        validation_data=(validation_data, validation_labels),
+        callbacks=[StreamlitCallback(status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, train_classes), early_stopping]
+    )
+    st.session_state.history = history
+    st.session_state.model_trained = True
+    model.save('face_recognition_model.h5')
+    st.success("Modelo treinado e salvo 🦾✅")
 
 
 # Exibir histórico de treinamento
-st.subheader("Resultados do Treinamento")
 def plot_training_history(history,save_path="training_history.png"):
     plt.figure(figsize=(10, 6))
     plt.plot(history.history['accuracy'], label='Acurácia Treinamento')
@@ -251,54 +258,54 @@ def plot_training_history(history,save_path="training_history.png"):
     plt.savefig(save_path)
     st.pyplot(plt)
 
-plot_training_history(history)
+# plot_training_history(history)
 
-def animate_training_history(history, save_path="training_animation.gif"):
-    # Extrair dados do histórico
-    epochs = np.arange(1, len(history.history['accuracy']) + 1)
-    acc = history.history['accuracy']
-    val_acc = history.history['val_accuracy']
-    loss = history.history['loss']
-    val_loss = history.history['val_loss']
+# def animate_training_history(history, save_path="training_animation.gif"):
+#     # Extrair dados do histórico
+#     epochs = np.arange(1, len(history.history['accuracy']) + 1)
+#     acc = history.history['accuracy']
+#     val_acc = history.history['val_accuracy']
+#     loss = history.history['loss']
+#     val_loss = history.history['val_loss']
 
-    # Criar a figura e os eixos
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.set_xlim(1, len(epochs))
-    ax.set_ylim(0, 1.1)  # Ajuste o limite superior se necessário
-    ax.set_xlabel('Épocas')
-    ax.set_ylabel('Métrica')
-    ax.grid(True)
+#     # Criar a figura e os eixos
+#     fig, ax = plt.subplots(figsize=(10, 6))
+#     ax.set_xlim(1, len(epochs))
+#     ax.set_ylim(0, 1.1)  # Ajuste o limite superior se necessário
+#     ax.set_xlabel('Épocas')
+#     ax.set_ylabel('Métrica')
+#     ax.grid(True)
 
-    # Adicionar as linhas para as métricas
-    train_acc_line, = ax.plot([], [], label='Acurácia Treinamento', color='blue')
-    val_acc_line, = ax.plot([], [], label='Acurácia Validação', color='orange')
-    train_loss_line, = ax.plot([], [], label='Perda Treinamento', color='green')
-    val_loss_line, = ax.plot([], [], label='Perda Validação', color='red')
-    ax.legend()
+#     # Adicionar as linhas para as métricas
+#     train_acc_line, = ax.plot([], [], label='Acurácia Treinamento', color='blue')
+#     val_acc_line, = ax.plot([], [], label='Acurácia Validação', color='orange')
+#     train_loss_line, = ax.plot([], [], label='Perda Treinamento', color='green')
+#     val_loss_line, = ax.plot([], [], label='Perda Validação', color='red')
+#     ax.legend()
 
-    # Função de atualização da animação
-    def update(epoch):
-        train_acc_line.set_data(epochs[:epoch], acc[:epoch])
-        val_acc_line.set_data(epochs[:epoch], val_acc[:epoch])
-        train_loss_line.set_data(epochs[:epoch], loss[:epoch])
-        val_loss_line.set_data(epochs[:epoch], val_loss[:epoch])
-        return train_acc_line, val_acc_line, train_loss_line, val_loss_line
+#     # Função de atualização da animação
+#     def update(epoch):
+#         train_acc_line.set_data(epochs[:epoch], acc[:epoch])
+#         val_acc_line.set_data(epochs[:epoch], val_acc[:epoch])
+#         train_loss_line.set_data(epochs[:epoch], loss[:epoch])
+#         val_loss_line.set_data(epochs[:epoch], val_loss[:epoch])
+#         return train_acc_line, val_acc_line, train_loss_line, val_loss_line
 
-    # Criar animação
-    anim = FuncAnimation(fig, update, frames=len(epochs) + 1, interval=300, blit=True)
+#     # Criar animação
+#     anim = FuncAnimation(fig, update, frames=len(epochs) + 1, interval=300, blit=True)
 
-    # Salvar como GIF
-    anim.save(save_path, writer='pillow', fps=2)  # Salva como GIF
-    plt.close(fig)
+#     # Salvar como GIF
+#     anim.save(save_path, writer='pillow', fps=2)  # Salva como GIF
+#     plt.close(fig)
 
-    # Exibir no Streamlit
-    st.image(save_path)
+#     # Exibir no Streamlit
+#     st.image(save_path)
 
 # Exemplo de uso no Streamlit
-if 'history' in locals():  # Certifique-se de que você já treinou um modelo antes
-    if st.button("Gerar Animação do Treinamento"):
-        st.write("Gerando animação...")
-        animate_training_history(history)
+# if 'history' in locals():  # Certifique-se de que você já treinou um modelo antes
+#     if st.button("Gerar Animação do Treinamento"):
+#         st.write("Gerando animação...")
+#         animate_training_history(history)
 
 # Função para salvar imagem na pasta correspondente
 def save_image(image_path, label):
@@ -313,6 +320,8 @@ def save_image(image_path, label):
     os.rename(image_path, dest_path)
     return dest_path
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
 # Matriz de Confusão
 def plot_confusion_matrix(y_true, y_pred, class_names, save_path="confusion_matrix.png"):
     cm = confusion_matrix(y_true, y_pred)
@@ -326,8 +335,8 @@ def plot_confusion_matrix(y_true, y_pred, class_names, save_path="confusion_matr
         
 # Avaliação
 # st.write("Avaliando o modelo...")
-y_pred = np.argmax(model.predict(validation_data), axis=1)
-y_true = np.argmax(validation_labels, axis=1)
+# y_pred = np.argmax(model.predict(validation_data), axis=1)
+# y_true = np.argmax(validation_labels, axis=1)
 # plot_confusion_matrix(y_true, y_pred, train_classes)
 # st.text(classification_report(y_true, y_pred, target_names=train_classes))
 
@@ -348,39 +357,55 @@ def display_classification_report(y_true, y_pred, class_names):
     # st.write(styled_df.to_html(), unsafe_allow_html=True)
     st.write()
 
-display_classification_report(y_true, y_pred,train_classes)
+# display_classification_report(y_true, y_pred,train_classes)
+
+if st.session_state.model_trained:
+    st.subheader("Resultados do Treinamento")
+    
+    # Verifique se o histórico está disponível antes de tentar plotar
+    if st.session_state.history is not None:
+        plot_training_history(st.session_state.history)
+    
+        # if 'confusion_matrix' not in st.session_state or 'classification_report' not in st.session_state:
+        if 'confusion_matrix' not in st.session_state:
+            y_pred = np.argmax(model.predict(validation_data), axis=1)
+            y_true = np.argmax(validation_labels, axis=1)
+            st.session_state.confusion_matrix = plot_confusion_matrix(y_true, y_pred, train_classes)
+            st.session_state.classification_report = display_classification_report(y_true, y_pred, train_classes)
 
 
 def generate_pdf_report():
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
+    if st.session_state.history is not None:
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
 
-    pdf.cell(200, 10, txt="Relatório de Treinamento e Avaliação", ln=True, align='C')
-    pdf.ln(10)
+        pdf.cell(200, 10, txt="Relatório de Treinamento e Avaliação", ln=True, align='C')
+        pdf.ln(10)
 
-    pdf.cell(200, 10, txt="Matriz de Confusão:", ln=True)
-    pdf.image("confusion_matrix.png", x=10, y=None, w=180)  # Adiciona a imagem ao PDF
-    pdf.ln(10)
-    
-    # Adicionar relatório de classificação
-    pdf.cell(200, 10, txt="Relatório de Classificação:", ln=True)
-    report = classification_report(y_true, y_pred, target_names=train_classes)
-    pdf.multi_cell(0, 10, txt=report)
-    pdf.ln(10)
+        pdf.cell(200, 10, txt="Matriz de Confusão:", ln=True)
+        pdf.image("confusion_matrix.png", x=10, y=None, w=180)  # Adiciona a imagem ao PDF
+        pdf.ln(10)
+        
+        # Adicionar relatório de classificação
+        # pdf.cell(200, 10, txt="Relatório de Classificação:", ln=True)
+        # report = classification_report(y_true, y_pred, target_names=train_classes)
+        # pdf.multi_cell(0, 10, txt=report)
+        # pdf.ln(10)
 
-    # Adicionar Histórico de Treinamento
-    pdf.cell(200, 10, txt="Histórico de Treinamento:", ln=True)
-    pdf.image("training_history.png", x=10, y=None, w=180)  # Adiciona a imagem ao PDF
-    
-    pdf.output("relatorio_treinamento.pdf")
-    st.success("Relatório PDF gerado: relatorio_treinamento.pdf")
+        # Adicionar Histórico de Treinamento
+        pdf.cell(200, 10, txt="Histórico de Treinamento:", ln=True)
+        pdf.image("training_history.png", x=10, y=None, w=180)  # Adiciona a imagem ao PDF
+        
+        pdf.output("relatorio_treinamento.pdf")
+        st.success("Relatório PDF gerado: relatorio_treinamento.pdf")
 
-if st.button("Gerar Relatório PDF"):
-    with st.spinner("Gerando relatório em PDF..."):
-        generate_pdf_report()
-        report_path="./relatorio_treinamento.pdf"
-        st.download_button("Download Relatório PDF", open(report_path, "rb"), file_name="relatorio.pdf")
+if st.session_state.model_trained:
+    if st.button("Gerar Relatório PDF", key="generate_pdf"):
+        with st.spinner("Gerando relatório em PDF..."):
+            generate_pdf_report()
+            report_path="./relatorio_treinamento.pdf"
+            st.download_button("Download Relatório PDF", open(report_path, "rb"), file_name="relatorio.pdf",key="download_pdf")
 
 def classify_image(image_path, model_path='face_recognition_model.h5'):
     model = tf.keras.models.load_model(model_path)
