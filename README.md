@@ -21,16 +21,16 @@ Este projeto tem como objetivo classificar imagens faciais em duas categorias: f
 - 📃 **FPDF**: Geração de relatórios em PDF com estatísticas do modelo.
 <br>
 <div align="center"">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="40" style="margin: 8px;"/> 
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg" width="40" style="margin: 8px;" />
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original-wordmark.svg" width="40" style="margin: 8px;" />
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg" width="40" style="margin: 8px;"/>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="40" style="margin: 8px;"/>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg"  width="40" style="margin: 8px;"/>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" width="40" style="margin: 8px;" />
-        <img src="https://icon.icepanel.io/Technology/svg/Matplotlib.svg" width="40" style="margin: 8px;" />
-        <img src="https://icon.icepanel.io/Technology/svg/Keras.svg" width="40" style="margin: 8px;" />     
-        <img src="https://icon.icepanel.io/Technology/svg/scikit-learn.svg" width="40" style="margin: 8px;" /> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original-wordmark.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg"  width="9%" style="margin: 14px;"/> 
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://icon.icepanel.io/Technology/svg/Matplotlib.svg" width="9%" style="margin: 14px;"/> 
+        <img src="https://icon.icepanel.io/Technology/svg/Keras.svg" width="9%" style="margin: 14px;"/>    
+        <img src="https://icon.icepanel.io/Technology/svg/scikit-learn.svg" width="9%" style="margin: 14px;"/> 
 </div>   
 
 ## Fluxo de Trabalho
