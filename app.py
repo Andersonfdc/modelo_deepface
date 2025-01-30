@@ -105,6 +105,54 @@ linkedin_icon = '''
 '''
 st.sidebar.markdown(linkedin_icon, unsafe_allow_html=True)
 
+class StreamlitCallback(tf.keras.callbacks.Callback):
+    def __init__(self, status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, class_names):
+        self.status_placeholder = status_placeholder
+        self.progress_bar = progress_bar
+        self.plot_placeholder = plot_placeholder
+        self.matrix_placeholder = matrix_placeholder
+        self.validation_data = validation_data
+        self.validation_labels = validation_labels
+        self.class_names = class_names
+        self.history = {'accuracy': [], 'val_accuracy': [], 'loss': [], 'val_loss': []}
+
+    def on_train_begin(self, logs=None):
+        self.status_placeholder.write("\U0001F680 Treinamento do modelo em andamento...")
+        self.progress_bar.progress(0)
+
+    def on_epoch_end(self, epoch, logs=None):
+        logs = logs or {}
+        self.history['accuracy'].append(logs.get('accuracy', 0))
+        self.history['val_accuracy'].append(logs.get('val_accuracy', 0))
+        self.history['loss'].append(logs.get('loss', 0))
+        self.history['val_loss'].append(logs.get('val_loss', 0))
+
+        df = pd.DataFrame({
+            'Época': range(1, len(self.history['accuracy']) + 1),
+            'Acurácia Treinamento': self.history['accuracy'],
+            'Acurácia Validação': self.history['val_accuracy'],
+            'Perda Treinamento': self.history['loss'],
+            'Perda Validação': self.history['val_loss']
+        })
+        
+        self.plot_placeholder.line_chart(df.set_index('Época'))
+        self.progress_bar.progress((epoch + 1) / 80)
+
+        y_pred = np.argmax(self.model.predict(self.validation_data), axis=1)
+        y_true = np.argmax(self.validation_labels, axis=1)
+        cm = confusion_matrix(y_true, y_pred)
+
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=self.class_names, yticklabels=self.class_names, ax=ax)
+        ax.set_xlabel('Predito')
+        ax.set_ylabel('Real')
+        ax.set_title('Matriz de Confusão')
+        self.matrix_placeholder.pyplot(fig)
+
+    def on_train_end(self, logs=None):
+        self.status_placeholder.success("\U0001F3C6 Treinamento concluído com sucesso!")
+        self.progress_bar.empty()
+
 # Diretórios de treino e validação
 train_dir = './data/train'
 validation_dir = './data/validation'
