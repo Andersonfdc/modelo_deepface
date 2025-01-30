@@ -1,4 +1,4 @@
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([https://<your-custom-subdomain>.streamlit.app](https://modelodeepfacetic.streamlit.app))
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://modelodeepfacetic.streamlit.app))
 
 <div align="center">
   <img src="logo.jpeg" width="200" />
