@@ -226,7 +226,6 @@ plot_placeholder = st.empty()
 matrix_placeholder = st.empty()
 
 # Treinar o modelo
-# st.write("Treinando o modelo...")
 early_stopping = EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True)
 
 # with st.spinner("Treinando... Isso pode levar algum tempo."):
@@ -258,55 +257,6 @@ def plot_training_history(history,save_path="training_history.png"):
     plt.savefig(save_path)
     st.pyplot(plt)
 
-# plot_training_history(history)
-
-# def animate_training_history(history, save_path="training_animation.gif"):
-#     # Extrair dados do histórico
-#     epochs = np.arange(1, len(history.history['accuracy']) + 1)
-#     acc = history.history['accuracy']
-#     val_acc = history.history['val_accuracy']
-#     loss = history.history['loss']
-#     val_loss = history.history['val_loss']
-
-#     # Criar a figura e os eixos
-#     fig, ax = plt.subplots(figsize=(10, 6))
-#     ax.set_xlim(1, len(epochs))
-#     ax.set_ylim(0, 1.1)  # Ajuste o limite superior se necessário
-#     ax.set_xlabel('Épocas')
-#     ax.set_ylabel('Métrica')
-#     ax.grid(True)
-
-#     # Adicionar as linhas para as métricas
-#     train_acc_line, = ax.plot([], [], label='Acurácia Treinamento', color='blue')
-#     val_acc_line, = ax.plot([], [], label='Acurácia Validação', color='orange')
-#     train_loss_line, = ax.plot([], [], label='Perda Treinamento', color='green')
-#     val_loss_line, = ax.plot([], [], label='Perda Validação', color='red')
-#     ax.legend()
-
-#     # Função de atualização da animação
-#     def update(epoch):
-#         train_acc_line.set_data(epochs[:epoch], acc[:epoch])
-#         val_acc_line.set_data(epochs[:epoch], val_acc[:epoch])
-#         train_loss_line.set_data(epochs[:epoch], loss[:epoch])
-#         val_loss_line.set_data(epochs[:epoch], val_loss[:epoch])
-#         return train_acc_line, val_acc_line, train_loss_line, val_loss_line
-
-#     # Criar animação
-#     anim = FuncAnimation(fig, update, frames=len(epochs) + 1, interval=300, blit=True)
-
-#     # Salvar como GIF
-#     anim.save(save_path, writer='pillow', fps=2)  # Salva como GIF
-#     plt.close(fig)
-
-#     # Exibir no Streamlit
-#     st.image(save_path)
-
-# Exemplo de uso no Streamlit
-# if 'history' in locals():  # Certifique-se de que você já treinou um modelo antes
-#     if st.button("Gerar Animação do Treinamento"):
-#         st.write("Gerando animação...")
-#         animate_training_history(history)
-
 # Função para salvar imagem na pasta correspondente
 def save_image(image_path, label):
     dest_dir = os.path.join(train_dir, label)
@@ -331,14 +281,7 @@ def plot_confusion_matrix(y_true, y_pred, class_names, save_path="confusion_matr
     plt.ylabel('Real')
     plt.title('Matriz de Confusão')
     plt.savefig(save_path)
-    # st.pyplot(plt)
         
-# Avaliação
-# st.write("Avaliando o modelo...")
-# y_pred = np.argmax(model.predict(validation_data), axis=1)
-# y_true = np.argmax(validation_labels, axis=1)
-# plot_confusion_matrix(y_true, y_pred, train_classes)
-# st.text(classification_report(y_true, y_pred, target_names=train_classes))
 
 def display_classification_report(y_true, y_pred, class_names):
     # Gerar o relatório como dicionário
@@ -349,12 +292,8 @@ def display_classification_report(y_true, y_pred, class_names):
 
     # Exibir no Streamlit como tabela interativa
     st.dataframe(report_df)
-    
-    # # Aplicar estilos com pandas Styler
-    # styled_df = report_df.style.background_gradient(subset=["precision", "recall", "f1-score"])
 
-    # # Exibir no Streamlit
-    # st.write(styled_df.to_html(), unsafe_allow_html=True)
+    # Exibir no Streamlit
     st.write()
 
 # display_classification_report(y_true, y_pred,train_classes)
@@ -386,12 +325,6 @@ def generate_pdf_report():
         pdf.cell(200, 10, txt="Matriz de Confusão:", ln=True)
         pdf.image("confusion_matrix.png", x=10, y=None, w=180)  # Adiciona a imagem ao PDF
         pdf.ln(10)
-        
-        # Adicionar relatório de classificação
-        # pdf.cell(200, 10, txt="Relatório de Classificação:", ln=True)
-        # report = classification_report(y_true, y_pred, target_names=train_classes)
-        # pdf.multi_cell(0, 10, txt=report)
-        # pdf.ln(10)
 
         # Adicionar Histórico de Treinamento
         pdf.cell(200, 10, txt="Histórico de Treinamento:", ln=True)
