@@ -213,6 +213,12 @@ model = build_model(input_shape=(128,), num_classes=len(train_classes))
 
 model.compile(optimizer=Adam(learning_rate=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
+# Criando um espaço para o gráfico
+status_placeholder = st.empty()
+progress_bar = st.progress(0)
+plot_placeholder = st.empty()
+matrix_placeholder = st.empty()
+
 # Treinar o modelo
 st.write("Treinando o modelo...")
 early_stopping = EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True)
