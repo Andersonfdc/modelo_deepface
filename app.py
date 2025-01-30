@@ -105,7 +105,6 @@ linkedin_icon = '''
 '''
 st.sidebar.markdown(linkedin_icon, unsafe_allow_html=True)
 
-@st.cache_data
 class StreamlitCallback(tf.keras.callbacks.Callback):
     def __init__(self, status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, class_names):
         self.status_placeholder = status_placeholder
