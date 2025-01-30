@@ -20,7 +20,7 @@ Este projeto tem como objetivo classificar imagens faciais em duas categorias: f
 
 - 📃 **FPDF**: Geração de relatórios em PDF com estatísticas do modelo.
 <br>
-<div align="center"">
+<div align="center">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" width="9%" style="margin: 14px;"/> 
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg" width="9%" style="margin: 14px;"/> 
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original-wordmark.svg" width="9%" style="margin: 14px;"/> 
