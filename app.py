@@ -322,13 +322,13 @@ def plot_confusion_matrix(y_true, y_pred, class_names, save_path="confusion_matr
     plt.ylabel('Real')
     plt.title('Matriz de Confusão')
     plt.savefig(save_path)
-    st.pyplot(plt)
+    # st.pyplot(plt)
         
 # Avaliação
-st.write("Avaliando o modelo...")
+# st.write("Avaliando o modelo...")
 y_pred = np.argmax(model.predict(validation_data), axis=1)
 y_true = np.argmax(validation_labels, axis=1)
-plot_confusion_matrix(y_true, y_pred, train_classes)
+# plot_confusion_matrix(y_true, y_pred, train_classes)
 # st.text(classification_report(y_true, y_pred, target_names=train_classes))
 
 def display_classification_report(y_true, y_pred, class_names):
