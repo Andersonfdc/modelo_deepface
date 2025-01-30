@@ -220,20 +220,20 @@ plot_placeholder = st.empty()
 matrix_placeholder = st.empty()
 
 # Treinar o modelo
-st.write("Treinando o modelo...")
+# st.write("Treinando o modelo...")
 early_stopping = EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True)
 
-with st.spinner("Treinando... Isso pode levar algum tempo."):
-    history = model.fit(
-        train_data, train_labels,
-        batch_size=8,
-        epochs=80,
-        validation_data=(validation_data, validation_labels),
-        callbacks=[StreamlitCallback(status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, train_classes), early_stopping]
-    )
+# with st.spinner("Treinando... Isso pode levar algum tempo."):
+history = model.fit(
+    train_data, train_labels,
+    batch_size=8,
+    epochs=80,
+    validation_data=(validation_data, validation_labels),
+    callbacks=[StreamlitCallback(status_placeholder, progress_bar, plot_placeholder, matrix_placeholder, validation_data, validation_labels, train_classes), early_stopping]
+)
 
 model.save('face_recognition_model.h5')
-st.success("Modelo treinado")
+st.success("Modelo treinado 🦾✅")
 
 
 # Exibir histórico de treinamento
