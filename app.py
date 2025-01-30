@@ -66,7 +66,7 @@ icons = '''
         <img src="https://icon.icepanel.io/Technology/svg/Matplotlib.svg" width="40" style="margin: 8px;" />
         <img src="https://icon.icepanel.io/Technology/svg/Keras.svg" width="40" style="margin: 8px;" />     
         <img src="https://icon.icepanel.io/Technology/svg/scikit-learn.svg" width="40" style="margin: 8px;" /> 
-    </div                   
+    </div>                  
 '''
 st.sidebar.markdown(icons, unsafe_allow_html=True)
 
